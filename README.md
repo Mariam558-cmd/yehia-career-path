@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yehia's Career Path
 
-## Getting Started
+**Name:** Mariam Atwy
 
-First, run the development server:
+**Course:** TechTalks · Ultimate Next.js 16 Course · Assignment 1 (Routing System)
+
+## About the project
+
+Yehia is a Computer Science graduate from the Lebanese University who wants
+to find a job within two months. This small website turns his scattered ideas
+into a clear journey: a home page with his goal, a three-step plan, a list of
+opportunities with a details page for each one, and a dashboard that shows his
+applications.
+
+The project was built with Next.js 16 (App Router), TypeScript, and Tailwind CSS.
+It uses local sample data only, so there is no database or login.
+
+## Pages
+
+| Route | What it shows |
+| --- | --- |
+| `/` | Home page with Yehia's goal |
+| `/plan` | The three-step plan: Prepare, Practice, Apply |
+| `/opportunities` | A list of three opportunities |
+| `/opportunities/[id]` | Details of one opportunity, or a friendly "not found" message |
+| `/dashboard` | Overview with the number of applications |
+| `/dashboard/applications` | The list of applications |
+
+## How to run it locally
+
+1. Make sure Node.js and Git are installed.
+2. Clone the repository and open the project folder:
+
+```bash
+git clone https://github.com/Mariam558-cmd/yehia-career-path.git
+cd yehia-career-path
+git checkout assignment-1-routing
+```
+
+3. Install the dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To check the production build, run `npm run build`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Questions
 
-## Learn More
+### 1. Why did you use `await` when reading `params`?
 
-To learn more about Next.js, take a look at the following resources:
+In Next.js 16, `params` is a Promise, which means its value is not ready
+immediately. Using `await` makes the page wait until the route information is
+available, so I can read the `id` from it. This is why the page component is
+`async` that it allows function to use await because `params` is `async` 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Why is the route ID a string?
 
-## Deploy on Vercel
+Everything in a URL is text. When Yehia opens `/opportunities/1`, the `1` is
+the text `"1"`, not a number. I kept the IDs in my data as strings too, so the
+comparison `opportunity.id === id` works. A number `1` and a string `"1"` are
+not equal when compared with `===`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. What belongs in the dashboard layout, and what belongs in each dashboard page?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The dashboard layout holds what is shared by all dashboard pages like the sidebar
+with the Overview and Applications links and the content.
+It stays on screen when Yehia moves between pages and this is because of using `children`that is the place where the current page appears so dashboard page holds only its own content.
